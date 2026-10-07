@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens do Salão Eternity.
+ * Paleta validada para WCAG AA:
+ *  - framboesa + branco: 6.9:1 (botões, links)
+ *  - ameixa sobre branco/algodão: 13–16:1 (texto)
+ *  - chiclete: só decorativo ou com texto ameixa (5.5:1)
+ */
+@theme {
+  --color-leite: #fff7fa;
+  --color-algodao: #ffdcea;
+  --color-algodao-claro: #ffeef4;
+  --color-chiclete: #ff4f9a;
+  --color-framboesa: #b0124f;
+  --color-framboesa-escura: #8e0d3f;
+  --color-ameixa: #3a0a23;
+  --color-ameixa-suave: #7d4a63;
+  --color-linha: #f5c6d8;
+
+  --font-display: var(--font-gloock), "Times New Roman", serif;
+  --font-sans: var(--font-bricolage), system-ui, sans-serif;
+
+  --radius-pill: 999px;
+  --radius-card: 1.75rem;
+  --radius-field: 0.875rem;
+
+  --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-desenhar: desenhar 2.4s var(--ease-suave) 0.2s both;
+  --animate-surgir: surgir 0.9s var(--ease-suave) both;
+
+  @keyframes desenhar {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes surgir {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-leite);
+    color: var(--color-ameixa);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-chiclete);
+    color: var(--color-ameixa);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-framboesa);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Remove o marcador padrão do <summary> em todos os navegadores */
+  .faq-summary {
+    list-style: none;
+  }
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
